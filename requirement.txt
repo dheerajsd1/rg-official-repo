@@ -1,0 +1,9 @@
+flask-cors
+Flask
+groq
+python-docx
+python-dotenv
+
+remark-gfm
+react
+react-markdown
