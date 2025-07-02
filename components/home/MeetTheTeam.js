@@ -1,165 +1,174 @@
 "use client";
-import { ArrowUpOutlined } from "@ant-design/icons";
-import Image from "next/image";
-import React, { useState } from "react";
-import {motion} from 'framer-motion';
+import React, { useState, useRef } from "react";
+import { motion } from 'framer-motion';
 import { cardVariantsdown } from "../common/animation/variation";
-const TeamData = [
 
+const TeamData = [
   {
     name: "VISHAL BORA",
     designation: "CEO",
-    photo: "/assets/images/vishal1.jpeg",
+    video: "/assets/videos/RG-ConsultancyBannerVideo.mp4",
+    poster: "/assets/images/ceo-poster.jpg",
     audio: "/assets/audios/audio1.mp3",
   },
   {
     name: "JYOTSANA BORA",
-    designation: "CHIEF HUMAN RESOURCES OFFICERS",
-    photo: "/assets/images/jyotisana1.jpeg",
+    designation: "CHIEF HUMAN RESOURCES OFFICER",
+    video: "/assets/videos/homeVideo.mp4",
+    poster: "/assets/images/chro-poster.jpg",
     audio: "/assets/audios/audio1.mp3",
   },
 ];
 
 const MeetTheTeam = () => {
   return (
-    <>    
-    <div className="container xl:py-14 py-6">
-      <motion.div className="hide_mobile_animation text-center">
-        <motion.h2 
-         initial="hidden"
-         whileInView="visible"
-         viewport={{ once: true }}
-         transition={{ duration: 0.8 }}
-         variants={cardVariantsdown()}
-        className="hide_mobile_animation md:text-[40px] text-[30px] greyText capitalize font-bold xl:py-3 py-1 text-center">meet <span className="text-[#00224C]">the team</span></motion.h2>
-        <motion.p
-         initial="hidden"
-         whileInView="visible"
-         viewport={{ once: true }}
-         transition={{ duration: 0.8 }}
-         variants={cardVariantsdown()}
-         className="hide_mobile_animation max-w-[1114px] greyText md:text-lg text-base capitalize xl:py-3 py-1 text-center">
-          experience, showcasing a robust background and a proven track record
-          of excellence in Software as a Service (SaaS), customer experience,
-          sales and quality management. Highly skilled in people management,  
-          operations, and analytics, he ensures program success through creative
-          problem-solving.  
-        </motion.p>  
-      </motion.div>
-      <div className="hide_mobile_animation flex md:flex-row flex-col  gap-2 justify-center xl:mt-12 lg:mt-8 mt-10 mb-4 ">
-        {TeamData.map((item, index) => {
-          return <TeamCard item={item} key={index+1} />;
-        })}
+    <section className="bg-gradient-to-b from-blue-50 to-white py-20 px-4">
+      <div className="max-w-7xl mx-auto">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          variants={cardVariantsdown()}
+        >
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6 text-gray-900"
+          >
+            Meet <span className="text-blue-600">Our Leadership</span>
+          </motion.h2>
+          <motion.p
+            className="text-gray-600 max-w-4xl mx-auto text-lg md:text-xl leading-relaxed"
+          >
+            Get to know the visionary leaders driving our success. With decades of combined experience,
+            our team brings unparalleled expertise in technology, operations, and human resources.
+          </motion.p>  
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 justify-center">
+          {TeamData.map((item, index) => (
+            <TeamCard item={item} key={index} />
+          ))}
+        </div>
+
+        <div className="mt-16 text-center">
+          <motion.p 
+            className="text-blue-600 uppercase font-semibold tracking-wider flex items-center justify-center gap-3 text-lg"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <span>OVER 20 YEARS OF COMBINED EXPERIENCE</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transform transition-transform hover:translate-x-2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </motion.p>
+        </div>
       </div>
-      <p className="hide_mobile_animation text-[#2563EB] uppercase font-semibold text-center text-base flex justify-center gap-1">OVER ~ 20 YEARS OF OPERATIONAL EXPERIENCE <Image src="/assets/icons/tilde_arrow.svg" alt="arrow" width={26} height={26} /> </p>
-    </div>
-    </>
+    </section>
   );
 };
 
 export default MeetTheTeam;
 
-export const TeamCard = (props) => {
+const TeamCard = ({ item }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = React.createRef();
+  const [isHovered, setIsHovered] = useState(false);
+  const videoRef = useRef(null);
+  const audioRef = useRef(null);
 
-  const handleTogglePlay = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
+  const handleVideoPlay = () => {
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
     } else {
-      audioRef.current.play();
+      videoRef.current.pause();
+      setIsPlaying(false);
     }
-    setIsPlaying(!isPlaying);
   };
-  const { key,name, designation, photo, audio } = props.item;
-  const styles = {
-    backgroundImage: `url(${photo})`,
 
-    /* Add other background-related styles if needed */
+  const handleToggleAudio = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
   };
+
   return (
     <motion.div
-    whileHover={{scale:1.1}}
-    transition={{duration:0.5 ,ease: "easeInOut"}}
-      className={`hide_mobile_animation h-8 player-wrapper bg-cover bg-no-repeat bg-center rounded-[20px] relative mb-6 lg:mx-2 md:!w-1/4 team_member`}
-      style={styles} key={key}
+      className="w-full h-[500px] rounded-2xl overflow-hidden shadow-2xl relative group"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, type: "spring" }}
+      whileHover={{ scale: 1.02 }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
-      <div className="teamOverlay absolute top-0 left-0 w-full h-full rounded-[20px]"></div>
-      <motion.div 
-      whileHover={{
-       animation:{x:100},
-       transition:{ type: "spring", stiffness: 100 }
-      }}
-      className="hide_mobile_animation flex absolute bottom-0 w-full justify-between px-3 py-4 text-white teamTextOverlay items-end">
-        <div className="w-4/5">
-          <h3 className="text-base font-semibold leading-6 tracking-[0.5px] uppercase">
-            {name}
-          </h3>
-          <h5 className="!text-[13px]">{designation}</h5>
-        </div>
-        {audio ? (
-          <div className="audio-player-container w-1/5">
-            <audio ref={audioRef} src="/assets/audios/audio1.mp3" />
-            <button className="play-pause-button" onClick={handleTogglePlay}>
-              {isPlaying ? (
-                <Image
-                  src="/assets/images/pausebtn.png"
-                  alt="play btn"
-                  width={52}
-                  height={45}
-                />
-              ) : (
-                <Image
-                  src="/assets/images/play.png"
-                  alt="play btn"
-                  width={52}
-                  height={45}
-                  className="w-full"
-                />
-              )}
-            </button>
+      {/* Video background with overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-800/30 to-transparent z-10 rounded-2xl" />
+      
+      <video
+        ref={videoRef}
+        src={item.video}
+        poster={item.poster}
+        muted
+        loop
+        className="absolute inset-0 w-full h-full object-cover rounded-2xl transition-all duration-500"
+        style={{ filter: isHovered ? 'brightness(1.1)' : 'brightness(0.9)' }}
+      />
+      
+      {/* Video play/pause button */}
+      <motion.button
+        onClick={handleVideoPlay}
+        className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-3 z-20 shadow-lg"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        {isPlaying ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+        )}
+      </motion.button>
+
+      {/* Team member info */}
+      <div className="absolute bottom-0 left-0 w-full p-8 z-20 transition-all duration-500 transform group-hover:-translate-y-2">
+        <div className="flex justify-between items-end">
+          <div>
+            <h3 className="text-white text-2xl font-bold tracking-wide uppercase">
+              {item.name}
+            </h3>
+            <p className="text-blue-200 text-lg mt-2">
+              {item.designation}
+            </p>
           </div>
-        ) : null}
-      </motion.div>
-
-
-
-
-
-
-
-{/* 
-      <div className="flex absolute bottom-0 w-full justify-between px-3 py-4 text-white teamTextOverlay items-end">
-        <div className="w-4/5">
-          <h3 className="text-base font-semibold leading-6 tracking-[0.5px] uppercase">
-            {name}
-          </h3>
-          <h5 className="!text-[13px]">{designation}</h5>
+          
+          {item.audio && (
+            <motion.button
+              onClick={handleToggleAudio}
+              className="bg-blue-600 hover:bg-blue-700 rounded-full p-4 shadow-xl"
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.1 }}
+              aria-label="Play audio"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                <line x1="12" y1="19" x2="12" y2="23"/>
+                <line x1="8" y1="23" x2="16" y2="23"/>
+              </svg>
+            </motion.button>
+          )}
         </div>
-        {audio ? (
-          <div className="audio-player-container w-1/5">
-            <audio ref={audioRef} src="/assets/audios/audio1.mp3" />
-            <button className="play-pause-button" onClick={handleTogglePlay}>
-              {isPlaying ? (
-                <Image
-                  src="/assets/images/pausebtn.png"
-                  alt="play btn"
-                  width={52}
-                  height={45}
-                />
-              ) : (
-                <Image
-                  src="/assets/images/play.png"
-                  alt="play btn"
-                  width={52}
-                  height={45}
-                  className="w-full"
-                />
-              )}
-            </button>
-          </div>
-        ) : null}
-      </div> */}
+      </div>
+
+      <audio ref={audioRef} src={item.audio} />
     </motion.div>
   );
 };

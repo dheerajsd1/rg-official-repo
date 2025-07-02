@@ -6,7 +6,7 @@ import { Menu, Button, Drawer } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import BlogLink from "../blogLink";  // Ensure this path is correct
+//  import  BlogLink  from  "../blogLink" ;  // Ensure this path is correct
 
 const Header = () => {
   const [current, setCurrent] = useState("/");
@@ -26,7 +26,7 @@ const Header = () => {
         color: "#ffffff",
         margin: 0,
         width: "100%",
-        borderBottom: "1px solid #00224C",
+        borderBottom: "1px solid #0059B3",
         borderRadius: 0,
       }}
     >
@@ -44,11 +44,11 @@ const Header = () => {
           label: <Link href="/about">About Us</Link>,
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #00224C",
+            borderBottom: "1px solid #0059B3",
             borderRadius: 0,
           },
         },
@@ -57,11 +57,11 @@ const Header = () => {
           key: "career",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #00224C",
+            borderBottom: "1px solid #0059B3",
             borderRadius: 0,
           },
         },
@@ -70,7 +70,7 @@ const Header = () => {
           key: "leadership",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
@@ -92,11 +92,11 @@ const Header = () => {
           key: "Recruitment Solutions",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #00224C",
+            borderBottom: "1px solid #0059B3",
             borderRadius: 0,
           },
         },
@@ -105,11 +105,11 @@ const Header = () => {
           key: "virtual_centre",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #00224C",
+            borderBottom: "1px solid #0059B3",
             borderRadius: 0,
           },
         },
@@ -120,12 +120,12 @@ const Header = () => {
           key: "Management Consultancy",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
             borderRadius: 0,
-            borderBottom: "1px solid #00224C",
+            borderBottom: "1px solid #0059B3",
           },
         },
         {
@@ -133,7 +133,7 @@ const Header = () => {
           key: "Retail Requirement",
           style: {
             height: "fit-content",
-            color: "#00224C",
+            color: "#0059B3",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
@@ -143,10 +143,10 @@ const Header = () => {
       ],
     },
 
-    {
-      label: <BlogLink />,
-      key: "blog",
-    },
+    // {
+    //   label: <BlogLink />,
+    //   key: "blog",
+    // },
     {
   label: (
     <Link
@@ -156,7 +156,7 @@ const Header = () => {
         color: "#ffffff",
         margin: 0,
         width: "100%",
-        borderBottom: "1px solid #00224C",
+        borderBottom: "1px solid #0059B3",
         borderRadius: 0,
       }}
     >
@@ -174,7 +174,7 @@ const Header = () => {
         color: "#ffffff",
         margin: 0,
         width: "100%",
-        borderBottom: "1px solid #00224C",
+        borderBottom: "1px solid #0059B3",
         borderRadius: 0,
       }}
     >
@@ -265,7 +265,7 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="main_menu blueBg">
+     <div className="main_menu" style={{ backgroundColor: "#0059B3" }}>
         <nav className="navbar">
           <div className="container flex justify-between items-center py-3 w-full">
             <Link href="/" className="lg:w-1/6 w-1/2">
@@ -307,7 +307,7 @@ const Header = () => {
                   placement="left"
                   onClose={onClose}
                   open={state.visible}
-                  className="!bg-[#00224C] "
+                  className="!bg-[#0059B3] "
                 >
                   <div
                     style={{ display: "flex", flexDirection: "column" }}
@@ -322,7 +322,7 @@ const Header = () => {
                       onOpenChange={onOpenChange}
                       mode="inline"
                       items={items}
-                      className="bg-[#00224C] text-white mobileMegaMenu"
+                      className="bg-[#0059B3] text-white mobileMegaMenu"
                     />
                   </div>
                 </Drawer>
