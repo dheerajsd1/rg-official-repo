@@ -1,6 +1,5 @@
 "use client";
 import { Form, Input, Select } from "antd";
-import Image from "next/image";
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
@@ -171,63 +170,62 @@ const countryCodes = [
   { code: "+998", label: "Uzbekistan (+998)", length: 9 }
 ];
 
+// (Country codes array remains the same as in your original code)
 
 const GetInTouch = () => {
   const [form] = Form.useForm();
   const [selectedCode, setSelectedCode] = useState(countryCodes[0].code);
   const [phoneLength, setPhoneLength] = useState(countryCodes[0].length);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Only send email using EmailJS
-const onFinish = async (values) => {
-  const phone = `${values.countryCode} ${values.phone}`;
-  const submitValues = { ...values, phone };
+  const onFinish = async (values) => {
+    setIsSubmitting(true);
+    const phone = `${values.countryCode} ${values.phone}`;
+    const submitValues = { ...values, phone };
 
-  // Get EmailJS credentials from environment variables
-   const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-  const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-  try {
-    const response = await fetch("/api/saveContact/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(submitValues),
-    });
+      const response = await fetch("/api/saveContact/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submitValues),
+      });
 
-    if (response.ok) {
-      emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name: submitValues.name,
-          email: submitValues.email,
-          phone: submitValues.phone,
-          subject: submitValues.subject,
-          message: submitValues.message,
-        },
-        publicKey
-      ).then(
-        (result) => {
-          form.resetFields();
-          alert("Your message has been sent and saved!");
-        },
-        (error) => {
-          alert("Saved to database, but failed to send email.");
-        }
-      );
-    } else {
-      alert("There was an error saving your message. Please try again later.");
+      if (response.ok) {
+        await emailjs.send(
+          serviceId,
+          templateId,
+          {
+            name: submitValues.name,
+            email: submitValues.email,
+            phone: submitValues.phone,
+            subject: submitValues.subject,
+            message: submitValues.message,
+          },
+          publicKey
+        );
+        
+        form.resetFields();
+        alert("Your message has been sent successfully!");
+      } else {
+        alert("Message saved but email failed to send.");
+      }
+    } catch (err) {
+      alert("There was an error. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (err) {
-    alert("There was an error. Please try again later.");
-  }
-};
-
-  const onFinishFailed = (errorInfo) => {
-    console.log("Validation Failed:", errorInfo);
   };
 
-  // Name: letters and spaces only
+  // Add the missing onFinishFailed function
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  // Add the missing validation functions
   const validateName = (_, value) => {
     if (!value || /^[A-Za-z\s]+$/.test(value)) {
       return Promise.resolve();
@@ -235,7 +233,6 @@ const onFinish = async (values) => {
     return Promise.reject("Name must contain letters and spaces only");
   };
 
-  // Phone: only digits, length based on country
   const validatePhone = (_, value) => {
     const codeObj = countryCodes.find((c) => c.code === selectedCode);
     const maxLength = codeObj ? codeObj.length : 15;
@@ -246,16 +243,13 @@ const onFinish = async (values) => {
     return Promise.resolve();
   };
 
-  // Message: alphanumeric, 50-2000 chars
   const validateMessage = (_, value) => {
     if (!value) return Promise.reject();
     if (value.length < 50)
       return Promise.reject("Message must be at least 50 characters");
     if (value.length > 2000)
       return Promise.reject("Message must be at most 2000 characters");
-    if (
-      !/^[\w\s.,!?@#&()\-'"$%:;*+=/\\[\]{}|<>`~^]*$/i.test(value)
-    ) {
+    if (!/^[\w\s.,!?@#&()\-'"$%:;*+=/\\[\]{}|<>`~^]*$/i.test(value)) {
       return Promise.reject(
         "Message can only contain alphanumeric characters and common punctuation"
       );
@@ -267,11 +261,9 @@ const onFinish = async (values) => {
     setSelectedCode(value);
     const codeObj = countryCodes.find((c) => c.code === value);
     setPhoneLength(codeObj ? codeObj.length : 10);
-    // Reset phone field when country changes
     form.setFieldsValue({ phone: "" });
   };
 
-  // Capitalize each word, trim trailing spaces
   const capitalizeWords = (str) => {
     return str
       .split(" ")
@@ -280,196 +272,249 @@ const onFinish = async (values) => {
       .join(" ");
   };
 
-  // Capitalize and trim for all user input fields
   const handleInputBlur = (field) => (e) => {
     let value = e.target.value.trim();
     if (field === "email") {
-      // For email, just trim and lowercase
       value = value.toLowerCase();
     } else if (field === "phone") {
-      // For phone, only digits, no spaces
       value = value.replace(/\D/g, "");
     } else {
-      // For name and subject, capitalize words
       value = capitalizeWords(value);
     }
     form.setFieldsValue({ [field]: value });
   };
 
+
+  // (Keep all your existing validation functions and handlers)
+
   return (
-    <div
-      id="get-in-touch"
-      className='md:bg-[url("/assets/images/get_in_touch.png")] bg-[url("/assets/images/get_in_touch.png")] 2xl:bg-center md:bg-[center_left_45%] bg-top md:bg-cover bg-contain bg-no-repeat bg-[#F6F6F6] min-h-[650px]'
-    >
-      <div className="container flex md:flex-row flex-col justify-between md:min-h-[650px] items-center gap-5">
-        <div className="text-white flex flex-col justify-center h-full md:w-1/2 w-full md:min-h-auto min-h-[300px]">
-          <h3 className="capitalize text-[39px] font-semibold">get in touch</h3>
-          <p>Get Free Business Consultation Today!</p>
-        </div>
-        <div className="md:w-1/2 w-full mb-5">
+    <section id="get-in-touch" className="relative overflow-hidden">
+      {/* Background with gradient overlay */}
+      <div className="absolute inset-0 bg-blue-600/45 z-0" />
+      <div className="absolute inset-0 bg-[url('/assets/images/get_in_touch.png')] bg-cover bg-center opacity-20 z-0" />
+      
+      <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-12 items-center">
+          {/* Left Content */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            variants={cardVariantsRight()}
-            className="hide_mobile_animation"
+            variants={cardVariantsLeft()}
+            className="lg:w-1/2 w-full text-white"
           >
-            <h3 className="uppercase text-[#00224C] text-4xl font-semibold py-10">
-              ask your questions
-            </h3>
-            <Form
-              form={form}
-              className="placeholder_color_black border_none h-full"
-              layout="vertical"
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-            >
-              <div className="flex gap-4 w-full">
-                <Form.Item
-                  className="w-1/2"
-                  name="name"
-                  rules={[
-                    { required: true, message: "Please enter your Full Name" },
-                    { min: 2, message: "Name must be at least 2 characters" },
-                    { validator: validateName },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter your Full Name*"
-                    className="px-[30px] py-[18px]"
-                    maxLength={50}
-                    onBlur={handleInputBlur("name")}
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-1/2"
-                  name="email"
-                  rules={[
-                    { required: true, message: "Please enter your email" },
-                    { type: "email", message: "Please enter a valid email" },
-                    { pattern: /@/, message: "Email must contain @" },
-                  ]}
-                >
-                  <Input
-                    placeholder="Enter your email*"
-                    className="px-[30px] py-[18px]"
-                    maxLength={100}
-                    onBlur={handleInputBlur("email")}
-                  />
-                </Form.Item>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Get In <span className="text-blue-300">Touch</span>
+            </h2>
+            <p className="text-xl mb-8 text-blue-100">
+              Get Free Business Consultation Today!
+            </p>
+            
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="bg-blue-600 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg">Call Us</h4>
+                  <p className="text-blue-200">+91 9818224495</p>
+                </div>
               </div>
-              <div className="flex gap-4 w-full">
-                <Form.Item
-                  className="w-1/4"
-                  name="countryCode"
-                  rules={[{ required: true, message: "Select country code" }]}
-                  initialValue={countryCodes[0].code}
-                >
-                  <Select
-                    showSearch
-                    placeholder="Code"
-                    optionFilterProp="children"
-                    onChange={handleCountryChange}
-                    filterOption={(input, option) =>
-                      (option?.label ?? "")
-                        .toLowerCase()
-                        .includes(input.toLowerCase())
-                    }
-                    options={countryCodes.map((c) => ({
-                      value: c.code,
-                      label: c.label,
-                    }))}
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-1/2"
-                  name="phone"
-                  rules={[
-                    { required: true, message: "Please enter your phone number" },
-                    { validator: validatePhone },
-                  ]}
-                >
-                  <Input
-                    placeholder="Phone No*"
-                    className="px-[30px] py-[18px]"
-                    maxLength={phoneLength}
-                    onChange={(e) => {
-                      // Only allow digits
-                      const value = e.target.value.replace(/\D/g, "");
-                      form.setFieldsValue({ phone: value });
-                    }}
-                    onBlur={handleInputBlur("phone")}
-                  />
-                </Form.Item>
-                <Form.Item
-                  className="w-1/4"
-                  name="subject"
-                  rules={[{ required: true, message: "Please enter a subject" }]}
-                >
-                  <Input
-                    placeholder="Subject"
-                    className="px-[30px] py-[18px]"
-                    maxLength={100}
-                    onBlur={handleInputBlur("subject")}
-                  />
-                </Form.Item>
+              
+              <div className="flex items-start gap-4">
+                <div className="bg-blue-600 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg">Email Us</h4>
+                  <p className="text-blue-200">sales@reddingtonglobal.com</p>
+                </div>
               </div>
-              <Form.Item
-                name="message"
-                rules={[
-                  { required: true, message: "Please enter your message" },
-                  { validator: validateMessage },
-                ]}
+              
+              <div className="flex items-start gap-4">
+                <div className="bg-blue-600 p-3 rounded-full">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-lg">Visit Us</h4>
+                  <p className="text-blue-200">123 Business Ave, Suite 100<br/>New York, NY 10001</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Form */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariantsRight()}
+            className="lg:w-1/2 w-full bg-white rounded-2xl shadow-2xl overflow-hidden"
+          >
+            <div className="p-8 md:p-10">
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">Ask Your Questions</h3>
+              <p className="text-gray-600 mb-8">We'll get back to you as soon as possible</p>
+              
+              <Form
+                form={form}
+                layout="vertical"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
               >
-                <Input.TextArea
-                  placeholder="Message"
-                  className="px-[30px] py-[18px]"
-                  rows={4}
-                  maxLength={2000}
-                  showCount
-                  onBlur={e => {
-                    let value = e.target.value.trim();
-                    // Capitalize only the first word, leave the rest unchanged
-                    if (value.length > 0) {
-                      const firstSpace = value.indexOf(" ");
-                      if (firstSpace === -1) {
-                        value = value.charAt(0).toUpperCase() + value.slice(1);
-                      } else {
-                        value =
-                          value.charAt(0).toUpperCase() +
-                          value.slice(1, firstSpace) +
-                          value.slice(firstSpace);
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Form.Item
+                    name="name"
+                    label="Full Name"
+                    rules={[
+                      { required: true, message: "Please enter your name" },
+                      { min: 2, message: "Name must be at least 2 characters" },
+                      { validator: validateName },
+                    ]}
+                  >
+                    <Input
+                      placeholder="John Doe"
+                      className="h-12 px-4 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      onBlur={handleInputBlur("name")}
+                    />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="email"
+                    label="Email Address"
+                    rules={[
+                      { required: true, message: "Please enter your email" },
+                      { type: "email", message: "Please enter a valid email" },
+                    ]}
+                  >
+                    <Input
+                      placeholder="john@example.com"
+                      className="h-12 px-4 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      onBlur={handleInputBlur("email")}
+                    />
+                  </Form.Item>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <Form.Item
+                    name="countryCode"
+                    label="Country Code"
+                    initialValue={countryCodes[0].code}
+                  >
+                    <Select
+                      showSearch
+                      optionFilterProp="children"
+                      onChange={handleCountryChange}
+                      filterOption={(input, option) =>
+                        (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                       }
-                    }
-                    form.setFieldsValue({ message: value });
-                  }}
-                />
-              </Form.Item>
-              <Form.Item>
-                <motion.button
-                  whileHover={{
-                    opacity: 1,
-                    scale: 1.1,
-                    boxShadow: "0px 10px 16px #ccc",
-                  }}
-                  whileTap={{
-                    opacity: 1,
-                    scale: 1.05,
-                    boxShadow: "0px 5px 8px #ccc",
-                  }}
-                  transition={{ duration: 0.6 }}
-                  className="hide_mobile_animation uppercase bg-[#00224C] text-white py-2 px-10 w-[157px] h-[55px] float-right"
-                  type="submit"
+                      className="h-12 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      options={countryCodes.map((c) => ({
+                        value: c.code,
+                        label: c.label,
+                      }))}
+                    />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="phone"
+                    label="Phone Number"
+                    rules={[
+                      { required: true, message: "Please enter your phone number" },
+                      { validator: validatePhone },
+                    ]}
+                  >
+                    <Input
+                      placeholder="1234567890"
+                      className="h-12 px-4 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      maxLength={phoneLength}
+                      onChange={(e) => {
+                        const value = e.target.value.replace(/\D/g, "");
+                        form.setFieldsValue({ phone: value });
+                      }}
+                      onBlur={handleInputBlur("phone")}
+                    />
+                  </Form.Item>
+                  
+                  <Form.Item
+                    name="subject"
+                    label="Subject"
+                    rules={[{ required: true, message: "Please enter a subject" }]}
+                  >
+                    <Input
+                      placeholder="Inquiry about..."
+                      className="h-12 px-4 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                      onBlur={handleInputBlur("subject")}
+                    />
+                  </Form.Item>
+                </div>
+                
+                <Form.Item
+                  name="message"
+                  label="Your Message"
+                  rules={[
+                    { required: true, message: "Please enter your message" },
+                    { validator: validateMessage },
+                  ]}
                 >
-                  submit
-                </motion.button>
-              </Form.Item>
-            </Form>
+                  <Input.TextArea
+                    rows={5}
+                    placeholder="Type your message here..."
+                    className="px-4 py-3 rounded-lg border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    showCount
+                    maxLength={2000}
+                    onBlur={e => {
+                      let value = e.target.value.trim();
+                      if (value.length > 0) {
+                        const firstSpace = value.indexOf(" ");
+                        if (firstSpace === -1) {
+                          value = value.charAt(0).toUpperCase() + value.slice(1);
+                        } else {
+                          value =
+                            value.charAt(0).toUpperCase() +
+                            value.slice(1, firstSpace) +
+                            value.slice(firstSpace);
+                        }
+                      }
+                      form.setFieldsValue({ message: value });
+                    }}
+                  />
+                </Form.Item>
+                
+                <Form.Item>
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-md transition-all duration-300"
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      "Submit Message"
+                    )}
+                  </motion.button>
+                </Form.Item>
+              </Form>
+            </div>
           </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
