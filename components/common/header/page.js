@@ -18,23 +18,23 @@ const Header = () => {
 
   const items = [
     {
-  label: (
-    <Link
-      href="/"
-      style={{
-        height: "fit-content",
-        color: "#ffffff",
-        margin: 0,
-        width: "100%",
-        borderBottom: "1px solid #0059B3",
-        borderRadius: 0,
-      }}
-    >
-      Home
-    </Link>
-  ),
-  key: "home",
-},
+      label: (
+        <Link
+          href="/"
+          style={{
+            height: "fit-content",
+            color: "#ffffff",
+            margin: 0,
+            width: "100%",
+            borderBottom: "1px solid #1565C0",
+            borderRadius: 0,
+          }}
+        >
+          Home
+        </Link>
+      ),
+      key: "home",
+    },
     {
       label: <Link href="#"> Who we are </Link>,
       key: "who_we_are",
@@ -44,11 +44,11 @@ const Header = () => {
           label: <Link href="/about">About Us</Link>,
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #0059B3",
+            borderBottom: "1px solid #1565C0",
             borderRadius: 0,
           },
         },
@@ -57,11 +57,11 @@ const Header = () => {
           key: "career",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #0059B3",
+            borderBottom: "1px solid #1565C0",
             borderRadius: 0,
           },
         },
@@ -70,11 +70,12 @@ const Header = () => {
           key: "leadership",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
             borderRadius: 0,
+            borderBottom: "1px solid #1565C0",
           },
         },
       ],
@@ -92,11 +93,11 @@ const Header = () => {
           key: "Recruitment Solutions",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #0059B3",
+            borderBottom: "1px solid #1565C0",
             borderRadius: 0,
           },
         },
@@ -105,11 +106,11 @@ const Header = () => {
           key: "virtual_centre",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #0059B3",
+            borderBottom: "1px solid #1565C0",
             borderRadius: 0,
           },
         },
@@ -120,12 +121,12 @@ const Header = () => {
           key: "Management Consultancy",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
             borderRadius: 0,
-            borderBottom: "1px solid #0059B3",
+            borderBottom: "1px solid #1565C0",
           },
         },
         {
@@ -133,7 +134,7 @@ const Header = () => {
           key: "Retail Requirement",
           style: {
             height: "fit-content",
-            color: "#0059B3",
+            color: "#1565C0",
             backgroundColor: "#D9D9D94D",
             margin: 0,
             width: "100%",
@@ -142,47 +143,42 @@ const Header = () => {
         },
       ],
     },
-
-    // {
-    //   label: <BlogLink />,
-    //   key: "blog",
-    // },
     {
-  label: (
-    <Link
-      href="/testimonial"
-      style={{
-        height: "fit-content",
-        color: "#ffffff",
-        margin: 0,
-        width: "100%",
-        borderBottom: "1px solid #0059B3",
-        borderRadius: 0,
-      }}
-    >
-      Testimonial
-    </Link>
-  ),
-  key: "company",
-},
+      label: (
+        <Link
+          href="/testimonial"
+          style={{
+            height: "fit-content",
+            color: "#ffffff",
+            margin: 0,
+            width: "100%",
+            borderBottom: "1px solid #1565C0",
+            borderRadius: 0,
+          }}
+        >
+          Testimonial
+        </Link>
+      ),
+      key: "company",
+    },
     {
-  label: (
-    <Link
-      href="/contact_us"
-      style={{
-        height: "fit-content",
-        color: "#ffffff",
-        margin: 0,
-        width: "100%",
-        borderBottom: "1px solid #0059B3",
-        borderRadius: 0,
-      }}
-    >
-      Contact Us
-    </Link>
-  ),
-  key: "contact us",
-},
+      label: (
+        <Link
+          href="/contact_us"
+          style={{
+            height: "fit-content",
+            color: "#ffffff",
+            margin: 0,
+            width: "100%",
+            borderBottom: "1px solid #1565C0",
+            borderRadius: 0,
+          }}
+        >
+          Contact Us
+        </Link>
+      ),
+      key: "contact us",
+    },
   ];
 
   const rootSubmenuKeys = ["who_we_are", "services"];
@@ -208,9 +204,54 @@ const Header = () => {
   };
 
   return (
-    <header>
-      <div className="top_menu blueBg !bg-[url('/assets/images/topHeader_bg.png')]  x1:bg-[center_left_-15rem] lg:bg-[center_left_-25rem] !bg-no-repeat py-0 bg-cover h-[60px] px-2 md:block hidden z-50 relative">
-        <div className="container flex justify-between">
+    <header
+      style={{
+        background: "linear-gradient(90deg, #0D47A1 0%, #1565C0 100%)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        boxShadow: "0 2px 8px 0 rgba(0,0,0,0.08)",
+        position: "relative",
+        minHeight: "120px", // adjust as needed for your design
+      }}
+      className="w-full z-50"
+    >
+      {/* RG Logo - Top Left */}
+      <div
+        style={{
+          position: "absolute",
+          top: 12,
+          left: 16,
+          zIndex: 10,
+        }}
+      >
+        <Image
+          src="/assets/images/rglogo3.png"
+          alt="RG Consultancy Logo"
+          width={200}
+          height={100}
+        />
+      </div>
+
+      {/* Immergix Logo - Bottom Right */}
+      <div
+        style={{
+          position: "absolute",
+          top: 8,
+          right: 24,
+          zIndex: 10,
+        }}
+      >
+        <Image
+          src="/assets/images/Immergix_white_Logo.png"
+          alt="Immergix Logo"
+          width={180}
+          height={28}
+        />
+      </div>
+
+      <div className="container mx-auto px-2">
+        <div className="flex justify-between items-center py-2">
+          {/* Left: Location */}
           <div className="flex items-center gap-3 w-1/3">
             <a
               href="https://maps.app.goo.gl/GL93UmC5ogNrjBe79"
@@ -229,108 +270,131 @@ const Header = () => {
               177, Udyog Vihar Phase 1, Sector 20, Gurugram - 122016
             </p>
           </div>
-          <div className="flex items-center gap-3 w-4/6 justify-end">
-            <div className="flex pl-[80px] gap-3">
-              <Image
-                src="/assets/images/Immergix_White_Logo.png"
-                alt="New Image"
-                width={200}
-                height={30}
-                className="mr-24"
-              />
-              <div className="flex flex-col items-center justify-center">
-                <p className="text-[#DFDF00] mb-1">CERTIFIED BY</p>
-                <Image
-                  src="/assets/images/nasscomLogo.png"
-                  alt="nasscom_Logo"
-                  className=" filter brightness-125"
-                  width={100}
-                  height={20}
-                />
-              </div>
-              <Image
-                src="/assets/icons/mail-icon.svg"
-                alt="location"
-                width={40}
-                height={40}
-              />
-              <div>
-                <Link href="/contact_us">
-                  <p className="text-[#DFDF00] cursor-pointer hover:underline">Have Any Question</p>
-                </Link>
-                
-                <p className="text-white">+91 9818224495</p>
-              </div>
+          {/* Center: Certification */}
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-[#DFDF00] mb-1">CERTIFIED BY</p>
+            <Image
+              src="/assets/images/nasscomLogo.png"
+              alt="nasscom_Logo"
+              className="filter brightness-125"
+              width={100}
+              height={20}
+            />
+          </div>
+          {/* Right: Contact */}
+          <div className="flex items-center gap-3 w-1/3 justify-end">
+            <Image
+              src="/assets/icons/mail-icon.svg"
+              alt="mail"
+              width={40}
+              height={40}
+            />
+            <div>
+              <Link href="/contact_us">
+                <p className="text-[#DFDF00] cursor-pointer hover:underline">
+                  Have Any Question
+                </p>
+              </Link>
+              <p className="text-white">+91 9818224495</p>
             </div>
+            <Button
+              className="menubtn ml-4"
+              type="primary"
+              shape="circle"
+              icon={<MenuOutlined />}
+              onClick={showDrawer}
+              style={{
+                background: "#0D47A1",
+                border: "none",
+                boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
+              }}
+            ></Button>
           </div>
         </div>
-      </div>
-     <div className="main_menu" style={{ backgroundColor: "#0059B3" }}>
-        <nav className="navbar">
-          <div className="container flex justify-between items-center py-3 w-full">
-            <Link href="/" className="lg:w-1/6 w-1/2">
+        {/* Main Menu */}
+        <nav className="navbar w-full">
+          <Menu
+            onClick={onClick}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={items}
+            className="bigmenu bg-transparent text-white flex justify-center text-lg gap-5"
+            style={{
+              background: "transparent",
+              fontWeight: 500,
+              fontSize: "1.08rem",
+            }}
+          />
+        </nav>
+        {/* Drawer for mobile */}
+        <Drawer
+          title={
+            <Link href={"/"} className="">
               <Image
-                src="/assets/images/rglogo3.png"
+                src="/assets/images/logo.png"
                 alt="logo"
-                width={147}
-                height={71}
+                className="w-1/2"
+                width="220"
+                height="50"
               />
             </Link>
-            <div className="lg:w-5/6 w-1/2">
-              <Menu
-                onClick={onClick}
-                selectedKeys={[current]}
-                mode="horizontal"
-                items={items}
-                className="bigmenu bg-transparent text-white flex justify-end text-lg gap-5"
-              />
-              <div className="float-right">
-                <Button
-                  className="menubtn"
-                  type="primary"
-                  shape="circle"
-                  icon={<MenuOutlined />}
-                  onClick={showDrawer}
-                ></Button>
-                <Drawer
-                  title={
-                    <Link href={"/"} className="">
-                      <Image
-                        src="/assets/images/logo.png"
-                        alt="logo"
-                        className="w-1/2"
-                        width="220"
-                        height="50"
-                      />
-                    </Link>
-                  }
-                  placement="left"
-                  onClose={onClose}
-                  open={state.visible}
-                  className="!bg-[#0059B3] "
-                >
-                  <div
-                    style={{ display: "flex", flexDirection: "column" }}
-                    className="mobile_menu"
-                  >
-                    <Menu
-                      onClick={onClick}
-                      style={{
-                        width: 256,
-                      }}
-                      openKeys={openKeys}
-                      onOpenChange={onOpenChange}
-                      mode="inline"
-                      items={items}
-                      className="bg-[#0059B3] text-white mobileMegaMenu"
-                    />
-                  </div>
-                </Drawer>
-              </div>
-            </div>
+          }
+          placement="left"
+          onClose={onClose}
+          open={state.visible}
+          className="!bg-[#1565C0]"
+          headerStyle={{
+            background: "#0D47A1",
+            borderBottom: "1px solid #1565C0",
+          }}
+          bodyStyle={{
+            background: "linear-gradient(90deg, #0D47A1 0%, #1565C0 100%)",
+            padding: 0,
+          }}
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column" }}
+            className="mobile_menu"
+          >
+            <Menu
+              onClick={onClick}
+              style={{
+                width: 256,
+                background: "#1565C0",
+                color: "#fff",
+                fontWeight: 500,
+              }}
+              openKeys={openKeys}
+              onOpenChange={onOpenChange}
+              mode="inline"
+              items={items}
+              className="bg-[#1565C0] text-white mobileMegaMenu"
+            />
           </div>
-        </nav>
+        </Drawer>
       </div>
+      <style jsx global>{`
+        .ant-menu-item a,
+        .ant-menu-submenu-title a {
+          color: #fffff !important;
+          transition: color 0.1s;
+        }
+        .ant-menu-item:hover a,
+        .ant-menu-submenu-title:hover a {
+          color:rgb(23, 21, 24) !important;
+          text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .ant-menu-item-selected a {
+          color:rgb(23, 21, 24) !important;
+        }
+        .menubtn {
+          transition: box-shadow 0.2s;
+        }
+        .menubtn:hover {
+          box-shadow: 0 4px 16px 0 rgba(0,0,0,0.18);
+          background: #1565C0 !important;
+        }
+      `}</style>
     </header>
   );
 };
