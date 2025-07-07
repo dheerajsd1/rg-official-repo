@@ -26,17 +26,17 @@ const Header = () => {
             color: "#ffffff",
             margin: 0,
             width: "100%",
-           borderBottom: "1px solid #1565C0",
-            borderRadius: 0,
+          //  borderBottom: "1px solid #1565C0",
+          //   borderRadius: 0,
           }}
         >
-          Home
+          HOME
         </Link>
       ),
       key: "home",
     },
     {
-      label: <Link href="#"> Who we are </Link>,
+      label: <Link href="#"> WHO WE ARE </Link>,
       key: "who_we_are",
       children: [
         {
@@ -81,7 +81,7 @@ const Header = () => {
       ],
     },
     {
-      label: <Link href="/services"> Services </Link>,
+      label: <Link href="/services"> SERVICES </Link>,
       key: "services",
       children: [
         {
@@ -152,11 +152,12 @@ const Header = () => {
             color: "#ffffff",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #1565C0",
-            borderRadius: 0,
+            // borderBottom: "1px solid #1565C0",
+            // borderRadius: 0,
           }}
         >
-          Testimonial
+          TESTIMONOIAL
+
         </Link>
       ),
       key: "company",
@@ -168,13 +169,13 @@ const Header = () => {
           style={{
             height: "fit-content",
             color: "#ffffff",
-            margin: 0,
+            
             width: "100%",
-            borderBottom: "1px solid #1565C0",
-            borderRadius: 0,
+            // borderBottom: "1px solid #1565C0",
+            // borderRadius: 0,
           }}
         >
-          Contact Us
+          CONTACT US
         </Link>
       ),
       key: "contact us",
@@ -206,7 +207,7 @@ const Header = () => {
   return (
     <header
       style={{
-        background: "linear-gradient(90deg, #02285F 0%,#D0F798 100%)",
+        background: "linear-gradient(90deg, #263CC6 0%,#68C41C 100%)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         boxShadow: "0 2px 8px 0 rgba(0,0,0,0.08)",
@@ -220,7 +221,7 @@ const Header = () => {
         style={{
           position: "absolute",
           top: 12,
-          left: 16,
+          left: 50,
           zIndex: 10,
         }}
       >
@@ -310,24 +311,42 @@ const Header = () => {
       <div className="container mx-auto px-2">
         <div className="flex justify-between items-center py-2">
           {/* Left: Location */}
-          <div className="flex items-center gap-3 w-1/3">
-            <a
-              href="https://maps.app.goo.gl/GL93UmC5ogNrjBe79"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                src="/assets/icons/location-icon.svg"
-                alt="location"
-                width={60}
-                height={60}
-                className="brightness-0 lg:invert-0 invert-[1]"
-              />
-            </a>
-            <p className="lg:text-black text-white bold text-sm">
-              177, Udyog Vihar Phase 1, Sector 20, Gurugram - 122016
-            </p>
-          </div>
+          <div className="flex items-center gap-3 w-1/3"
+  style={{
+    background: "rgba(13, 71, 161, 0.95)", // semi-transparent blue
+    borderRadius: 8,
+    padding: "8px 20px",
+    minWidth: 320,
+    boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
+  }}
+>
+  <a
+    href="https://maps.app.goo.gl/GL93UmC5ogNrjBe79"
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{ display: "flex", alignItems: "center" }}
+  >
+    <Image
+      src="/assets/icons/location-icon.svg"
+      alt="location"
+      width={36}
+      height={36}
+      className="brightness-0 invert-[1]"
+      style={{ minWidth: 36 }}
+    />
+  </a>
+  <p
+    className="text-white font-semibold text-sm"
+    style={{
+      margin: 0,
+      letterSpacing: 0.2,
+      lineHeight: 1.4,
+      whiteSpace: "pre-line",
+    }}
+  >
+    177, Udyog Vihar Phase 1, Sector 20,{"\n"}Gurugram - 122016
+  </p>
+</div>
         </div>
         {/* Main Menu */}
         <nav className="navbar w-full">
