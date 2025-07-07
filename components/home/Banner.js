@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { AudioMutedOutlined, AudioOutlined } from "@ant-design/icons";
 
+
 const images = [
   "/assets/images/image12.png",
   "/assets/images/image20.png",
@@ -50,7 +51,7 @@ const Banner = () => {
                       width: "100%",
                       height: "auto",
                       objectFit: "fill", // Changed from "contain" to "cover" to fill the space
-                      maxHeight: "914px",
+                      maxHeight: "950px",
                     }}
                     className="bg-black"
                     priority={idx === 0}

@@ -206,7 +206,7 @@ const Header = () => {
   return (
     <header
       style={{
-        background: "linear-gradient(90deg, #0D47A1 0%, #1565C0 100%)",
+        background: "linear-gradient(90deg, #02285F 0%,#D0F798 100%)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         boxShadow: "0 2px 8px 0 rgba(0,0,0,0.08)",
@@ -232,20 +232,78 @@ const Header = () => {
         />
       </div>
 
-      {/* Immergix Logo - Bottom Right */}
+      {/* Immergix Logo and Certification/Contact - Bottom Right */}
       <div
         style={{
           position: "absolute",
-          top: 8,
           right: 24,
+          bottom: 12,
           zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+          gap: "10px",
+          minWidth: 320,
         }}
       >
+        {/* Certification and Contact (now on top) */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            background: "rgba(13, 71, 161, 0.95)",
+            borderRadius: 8,
+            padding: "8px 20px",
+            minWidth: 300,
+          }}
+        >
+          <span
+            className="text-[#DFDF00] text-base font-semibold"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            CERTIFIED BY
+          </span>
+          <Image
+            src="/assets/images/nasscomLogo.png"
+            alt="nasscom_Logo"
+            width={80}
+            height={22}
+            style={{ marginBottom: 2 }}
+          />
+          <Image
+            src="/assets/icons/mail-icon.svg"
+            alt="mail"
+            width={28}
+            height={28}
+            style={{
+              border: "1px solid #DFDF00",
+              borderRadius: "50%",
+              padding: 3,
+            }}
+          />
+          <Link href="/contact_us">
+            <span
+              className="text-[#DFDF00] cursor-pointer hover:underline text-base font-semibold"
+              style={{ whiteSpace: "nowrap" }}
+            >
+              Have Any Question
+            </span>
+          </Link>
+          <span
+            className="text-white text-base font-semibold"
+            style={{ whiteSpace: "nowrap" }}
+          >
+            +91 9818224495
+          </span>
+        </div>
+        {/* Immergix Logo (now below) */}
         <Image
-          src="/assets/images/Immergix_white_Logo.png"
+          src="/assets/images/IMMERGIX_Logo.svg"
           alt="Immergix Logo"
           width={180}
           height={28}
+          style={{ marginTop: 8 }}
         />
       </div>
 
@@ -266,49 +324,9 @@ const Header = () => {
                 className="brightness-0 lg:invert-0 invert-[1]"
               />
             </a>
-            <p className="lg:text-black text-white">
+            <p className="lg:text-black text-white bold text-sm">
               177, Udyog Vihar Phase 1, Sector 20, Gurugram - 122016
             </p>
-          </div>
-          {/* Center: Certification */}
-          <div className="flex flex-col items-center justify-center">
-            <p className="text-[#DFDF00] mb-1">CERTIFIED BY</p>
-            <Image
-              src="/assets/images/nasscomLogo.png"
-              alt="nasscom_Logo"
-              className="filter brightness-125"
-              width={100}
-              height={20}
-            />
-          </div>
-          {/* Right: Contact */}
-          <div className="flex items-center gap-3 w-1/3 justify-end">
-            <Image
-              src="/assets/icons/mail-icon.svg"
-              alt="mail"
-              width={40}
-              height={40}
-            />
-            <div>
-              <Link href="/contact_us">
-                <p className="text-[#DFDF00] cursor-pointer hover:underline">
-                  Have Any Question
-                </p>
-              </Link>
-              <p className="text-white">+91 9818224495</p>
-            </div>
-            <Button
-              className="menubtn ml-4"
-              type="primary"
-              shape="circle"
-              icon={<MenuOutlined />}
-              onClick={showDrawer}
-              style={{
-                background: "#0D47A1",
-                border: "none",
-                boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
-              }}
-            ></Button>
           </div>
         </div>
         {/* Main Menu */}
