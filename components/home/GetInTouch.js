@@ -345,7 +345,7 @@ const GetInTouch = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-lg">Visit Us</h4>
-                  <p className="text-blue-200">123 Business Ave, Suite 100<br/>New York, NY 10001</p>
+                  <p className="text-blue-200">177, Udyog Vihar Phase 1, Sector 20,<br/>Gurugram - 122016</p>
                 </div>
               </div>
             </div>

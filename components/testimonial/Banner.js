@@ -1,4 +1,4 @@
-+"use client";
+"use client";
 import React, { useRef, useEffect, useState } from 'react';
 import { Link, scroller } from 'react-scroll';
 import { motion, useAnimation } from 'framer-motion';
