@@ -142,7 +142,7 @@ const countryCodes = [
   { code: "+852", label: "Hong Kong (+852)", length: 8 },
   { code: "+853", label: "Macau (+853)", length: 8 },
   { code: "+855", label: "Cambodia (+855)", length: 9 },
-  { code: "+856", label: "Laos (+856)", length: 9 },
+  { code: "+856", label: "Laos (+856)", length: 9 }, 
   { code: "+880", label: "Bangladesh (+880)", length: 10 },
   { code: "+886", label: "Taiwan (+886)", length: 9 },
   { code: "+960", label: "Maldives (+960)", length: 7 },

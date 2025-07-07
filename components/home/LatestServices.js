@@ -161,18 +161,19 @@ const LatestServices = () => {
         }}
       >
         <div className="text-center mb-16 relative">
-          <motion.h6 
-            className="text-sm font-semibold tracking-wider mb-4 uppercase"
-            style={{ color: colors.gray }}
+          <motion.h1 
+            className="text-2xl font-semibold tracking-wider mb-4 uppercase"
+            style={{ color: " #2563EB"  }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             viewport={{ once: true }}
+            
           >
             LATEST SERVICES
-          </motion.h6>
+          </motion.h1>
           <motion.h2 
-            className="text-4xl md:text-5xl font-bold mb-6 relative inline-block"
+            className="text-4xl md:text-4xl font-bold mb-6 relative inline-block"
             style={{ color: colors.dark }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,7 +184,7 @@ const LatestServices = () => {
             <motion.span 
               className="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
               initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
+              whileInView={{ scaleX: 0}}
               transition={{ delay: 0.6, duration: 0.8 }}
               viewport={{ once: true }}
               style={{ originX: 0 }}

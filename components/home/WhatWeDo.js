@@ -54,10 +54,10 @@ const WhatWeDo = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h6 className="uppercase text-blue-600 text-sm font-semibold tracking-wider mb-3">
+          <h1 className="uppercase text-blue-600 text-2xl font-semibold tracking-wider mb-6">
             What We Do
-          </h6>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          </h1>
+          <h2 className="text-4xl md:text-4xl font-bold text-gray-900 mb-4">
             Our On Site Office Solution -{" "}
             <span className="text-blue-700">Your Competitive Edge</span> 
           </h2>

@@ -4,7 +4,7 @@ import VirtualContactCenter from '@/components/virtualCenterService/VirtualConta
 import WhyVirtualCenter from '@/components/virtualCenterService/WhyVirtualCenter'
 import React from 'react'
 
-const page = () => {
+const page = () => {   
   return (
     <div>
       <Banner/>
