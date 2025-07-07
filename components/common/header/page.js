@@ -26,7 +26,7 @@ const Header = () => {
             color: "#ffffff",
             margin: 0,
             width: "100%",
-            borderBottom: "1px solid #1565C0",
+           borderBottom: "1px solid #1565C0",
             borderRadius: 0,
           }}
         >
