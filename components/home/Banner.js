@@ -9,8 +9,8 @@ import { AudioMutedOutlined, AudioOutlined } from "@ant-design/icons";
 
 const images = [
   "/assets/images/image12.png",
-  "/assets/images/image20.png",
-  "/assets/images/image 16.png",
+  "/assets/images/image22.png",
+  "/assets/images/image21.png",
 ];
 
 const Banner = () => {

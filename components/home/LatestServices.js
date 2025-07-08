@@ -94,6 +94,7 @@ const settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        arrows: false, // Hide arrows on mobile
       },
     },
   ],
