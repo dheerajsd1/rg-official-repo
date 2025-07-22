@@ -64,7 +64,7 @@ const Header = () => {
     <header
       className="w-full z-50 relative"
       style={{
-        background: "linear-gradient(90deg, #263CC6 0%,#68C41C 100%)",
+        background: "linear-gradient(90deg, #2a42ddff 0%,#605ee7  100%)",
         boxShadow: "0 2px 8px 0 rgba(0,0,0,0.08)",
         minHeight: "120px",
       }}
